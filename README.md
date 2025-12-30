@@ -1,42 +1,109 @@
-# Fibonacci Benchmark: Cross-Language Performance Comparison
+# readme.md
 
-## Project Overview
+**Created:** December 30, 2025
+**GitHub Repository:** git@github.com:mohdazlanabas/lang_speed_bash.git
 
-This project implements a simple **iterative Fibonacci(50)** calculation across 13 popular programming languages to demonstrate relative performance characteristics. The Fibonacci sequence is calculated using iteration (not recursion) to focus on loop efficiency and basic arithmetic operations.
+---
 
-**Benchmark Type:** Barebone computational algorithm  
-**Test Case:** Calculate the 50th Fibonacci number iteratively  
-**Expected Result:** 12,586,269,025
+**Developed by:** net1io.com
+**Copyright (C) 2020**
 
-## Languages Tested
+---
 
-1. C
-2. C++
-3. C#
-4. Java
-5. JavaScript (Node.js)
-6. TypeScript (via ts-node)
-7. Python
-8. Rust
-9. Go
-10. Dart
-11. Bash
-12. PHP
-13. Ruby
+## Fibonacci(100) Cross-Language Performance Benchmark
 
-## Output Format
+### App Introduction
 
-Each program outputs:
+This application implements a computational benchmark to compare the performance of 13 popular programming languages by calculating the 100th Fibonacci number using an iterative algorithm. The benchmark measures execution time, memory usage, and demonstrates how different languages handle arbitrary-precision arithmetic required for large integer calculations.
+
+**Benchmark Details:**
+- **Algorithm:** Iterative Fibonacci calculation (not recursive)
+- **Test Case:** Calculate Fibonacci(100)
+- **Expected Result:** 354,224,848,179,261,915,075
+- **Purpose:** Compare raw computational speed and memory efficiency across languages
+
+### App Architecture
+
+The application follows a simple, parallelized architecture:
+
 ```
-Language: [Language Name]
-Time: [X.XXXXXX] seconds
-Memory: [XXXX] KB
-Result: 12586269025
+┌─────────────────┐
+│   run_all.sh    │  ← Master orchestration script
+└────────┬────────┘
+         │
+         ├──→ Compiles/runs each language implementation in sequence
+         │
+         ├──→ Each implementation:
+         │    1. Starts timing
+         │    2. Calculates Fibonacci(100)
+         │    3. Measures memory usage
+         │    4. Outputs results
+         │
+         └──→ Aggregates output for comparison
 ```
 
-## Prerequisites
+**Key Design Principles:**
+- Each language implementation is standalone
+- Consistent output format for easy comparison
+- Uses native big integer libraries where needed
+- Optimized compilation flags for compiled languages
 
-Install the required compilers/interpreters for each language:
+### App Language and Frameworks
+
+| Language   | Version/Runtime | Big Integer Library |
+|------------|----------------|---------------------|
+| C          | GCC/Clang      | `__uint128_t`       |
+| C++        | GCC/Clang      | `__uint128_t`       |
+| C#         | .NET/Mono      | `System.Numerics.BigInteger` |
+| Java       | OpenJDK 11+    | `java.math.BigInteger` |
+| JavaScript | Node.js 14+    | `BigInt` (native)   |
+| TypeScript | ts-node        | `BigInt` (native)   |
+| Python     | Python 3.8+    | Native (unlimited precision) |
+| Rust       | 1.70+          | `u128` (native)     |
+| Go         | 1.18+          | `math/big`          |
+| Dart       | 2.17+          | `BigInt` (native)   |
+| Bash       | 5.0+           | `bc` (calculator)   |
+| PHP        | 7.4+/8.0+      | GMP (GNU Multiple Precision) |
+| Ruby       | 2.7+/3.0+      | Native (unlimited precision) |
+
+### App File Structure
+
+```
+lang_speed/
+├── readme.md              # This file
+├── .gitignore            # Git ignore rules
+│
+├── fib.c                 # C implementation (uses __uint128_t)
+├── fib.cpp               # C++ implementation (uses __uint128_t)
+├── fib.cs                # C# implementation (uses BigInteger)
+├── Fib.java              # Java implementation (uses BigInteger)
+├── fib.js                # JavaScript implementation (uses BigInt)
+├── fib.ts                # TypeScript implementation (uses BigInt)
+├── fib.py                # Python implementation (native big int)
+├── fib.rs                # Rust implementation (uses u128)
+├── fib.go                # Go implementation (uses math/big)
+├── fib.dart              # Dart implementation (uses BigInt)
+├── fib.sh                # Bash implementation (uses bc)
+├── fib.php               # PHP implementation (uses GMP)
+├── fib.rb                # Ruby implementation (native big int)
+│
+├── run_all.sh            # Master script to run all benchmarks
+│
+├── fib_c                 # Compiled C binary (generated)
+├── fib_cpp               # Compiled C++ binary (generated)
+├── fib                   # Compiled Rust binary (generated)
+└── Fib.class             # Compiled Java class (generated)
+```
+
+### App Compiling Steps
+
+#### Prerequisites
+
+**macOS (via Homebrew):**
+```bash
+brew install gcc mono openjdk node python rust go dart php ruby bc
+npm install -g typescript ts-node
+```
 
 **Ubuntu/Debian:**
 ```bash
@@ -65,255 +132,336 @@ sudo apt install golang-go
 # Dart
 sudo apt install dart
 
-# Bash (usually pre-installed)
+# Bash
 sudo apt install bash bc
 
-# PHP
-sudo apt install php-cli
+# PHP (with GMP support)
+sudo apt install php-cli php-gmp
 
 # Ruby
 sudo apt install ruby
 ```
 
-**macOS (via Homebrew):**
-```bash
-brew install gcc mono openjdk node python rust go dart php ruby
-npm install -g typescript ts-node
-```
+#### Compilation Commands
 
----
-
-## Running Each Implementation
-
-### 1. C
+**C:**
 ```bash
 gcc -O2 fib.c -o fib_c
+```
+
+**C++:**
+```bash
+g++ -O2 fib.cpp -o fib_cpp
+```
+
+**C#:**
+```bash
+mcs fib.cs
+# Or with .NET Core:
+dotnet build fib.cs
+```
+
+**Java:**
+```bash
+javac Fib.java
+```
+
+**Rust:**
+```bash
+rustc -O fib.rs
+```
+
+**Go (optional - can use `go run`):**
+```bash
+go build fib.go
+```
+
+**Dart (optional - can run interpreted):**
+```bash
+dart compile exe fib.dart -o fib_dart
+```
+
+**TypeScript (optional - can use ts-node):**
+```bash
+tsc fib.ts
+```
+
+### App Run Steps
+
+#### Run Individual Implementations
+
+**C:**
+```bash
 ./fib_c
 ```
 
-### 2. C++
+**C++:**
 ```bash
-g++ -O2 fib.cpp -o fib_cpp
 ./fib_cpp
 ```
 
-### 3. C#
+**C#:**
 ```bash
-mcs fib.cs
 mono fib.exe
-```
-Or with .NET Core:
-```bash
+# Or with .NET Core:
 dotnet run fib.cs
 ```
 
-### 4. Java
+**Java:**
 ```bash
-javac Fib.java
 java Fib
 ```
 
-### 5. JavaScript
+**JavaScript:**
 ```bash
 node fib.js
 ```
 
-### 6. TypeScript
+**TypeScript:**
 ```bash
 ts-node fib.ts
-```
-Or compile first:
-```bash
-tsc fib.ts
+# Or if compiled:
 node fib.js
 ```
 
-### 7. Python
+**Python:**
 ```bash
 python3 fib.py
 ```
 
-### 8. Rust
+**Rust:**
 ```bash
-rustc -O fib.rs
 ./fib
 ```
 
-### 9. Go
+**Go:**
 ```bash
 go run fib.go
-```
-Or compile first:
-```bash
-go build fib.go
+# Or if compiled:
 ./fib
 ```
 
-### 10. Dart
+**Dart:**
 ```bash
 dart fib.dart
-```
-Or compile to native:
-```bash
-dart compile exe fib.dart -o fib_dart
+# Or if compiled:
 ./fib_dart
 ```
 
-### 11. Bash
+**Bash:**
 ```bash
 chmod +x fib.sh
 ./fib.sh
 ```
 
-### 12. PHP
+**PHP:**
 ```bash
 php fib.php
 ```
 
-### 13. Ruby
+**Ruby:**
 ```bash
 ruby fib.rb
 ```
 
----
+#### Run All Benchmarks
 
-## Run All Tests (Linux/macOS)
-
-Create a simple script to run all benchmarks:
-
-```bash
-#!/bin/bash
-echo "=== Fibonacci(50) Benchmark ==="
-echo ""
-
-# C
-gcc -O2 fib.c -o fib_c && ./fib_c
-echo ""
-
-# C++
-g++ -O2 fib.cpp -o fib_cpp && ./fib_cpp
-echo ""
-
-# C#
-mcs fib.cs && mono fib.exe
-echo ""
-
-# Java
-javac Fib.java && java Fib
-echo ""
-
-# JavaScript
-node fib.js
-echo ""
-
-# TypeScript
-ts-node fib.ts
-echo ""
-
-# Python
-python3 fib.py
-echo ""
-
-# Rust
-rustc -O fib.rs && ./fib
-echo ""
-
-# Go
-go run fib.go
-echo ""
-
-# Dart
-dart fib.dart
-echo ""
-
-# Bash
-chmod +x fib.sh && ./fib.sh
-echo ""
-
-# PHP
-php fib.php
-echo ""
-
-# Ruby
-ruby fib.rb
-```
-
-Save as `run_all.sh`, then:
+Execute all language implementations sequentially:
 ```bash
 chmod +x run_all.sh
 ./run_all.sh
 ```
 
----
+**Expected Output Format:**
+```
+Language: [Language Name]
+Time: [X.XXXXXX] seconds
+Memory: [XXXX] KB
+Result: 354224848179261915075
+```
 
-## Expected Performance Ranking
+### Suggested Testing
 
-**Fastest → Slowest (Typical):**
+#### Verify Correctness
+All implementations should output the same result:
+```
+Result: 354224848179261915075
+```
 
-1. **C / C++ / Rust** - Compiled, direct machine code
-2. **Go** - Compiled, efficient runtime
-3. **Java / C#** - JIT-compiled, managed runtime
-4. **Dart (AOT)** - Ahead-of-time compiled
-5. **JavaScript / TypeScript** - V8 JIT optimization
+You can verify this is correct using Python:
+```bash
+python3 -c "a,b=0,1; exec('a,b=b,a+b;'*99); print(b)"
+```
+
+#### Performance Testing
+
+1. **Single Run Test:**
+   ```bash
+   ./run_all.sh
+   ```
+
+2. **Multiple Run Average (recommended):**
+   ```bash
+   for i in {1..5}; do
+     echo "=== Run $i ==="
+     ./run_all.sh
+     echo ""
+   done
+   ```
+
+3. **Test Individual Language:**
+   ```bash
+   # Example: Test Rust 10 times
+   for i in {1..10}; do ./fib; done
+   ```
+
+4. **Compare Compiled vs Interpreted:**
+   ```bash
+   # Compiled languages (typically faster)
+   ./fib_c
+   ./fib_cpp
+   ./fib
+
+   # Interpreted languages
+   python3 fib.py
+   ruby fib.rb
+   php fib.php
+   ```
+
+#### Memory Profiling
+
+Each implementation includes basic memory measurement, but for detailed profiling:
+
+**Linux (using valgrind):**
+```bash
+valgrind --tool=massif ./fib_c
+```
+
+**macOS (using leaks):**
+```bash
+leaks --atExit -- ./fib_c
+```
+
+**Cross-platform (using time):**
+```bash
+/usr/bin/time -v ./fib_c  # Linux
+/usr/bin/time -l ./fib_c  # macOS
+```
+
+### Performance Expectations
+
+**Typical Performance Ranking (Fastest → Slowest):**
+
+1. **C / C++ / Rust** - Compiled to native machine code, minimal overhead
+2. **Go** - Compiled with efficient runtime, good performance
+3. **Java / C#** - JIT-compiled, managed runtime (slower startup, fast execution)
+4. **Dart (AOT compiled)** - Ahead-of-time compilation option
+5. **JavaScript / TypeScript** - V8 JIT optimization (Node.js)
 6. **PHP / Python / Ruby** - Interpreted, dynamic typing
-7. **Bash** - Shell script, slowest
+7. **Bash** - Shell scripting (slowest, uses external bc process)
 
-**Memory Usage:**
-- Compiled languages (C, C++, Rust, Go) typically use less memory
-- JVM/CLR languages (Java, C#) have higher baseline due to runtime
-- Interpreted languages vary based on implementation
+**Memory Usage Patterns:**
+- **Lowest:** C, C++, Rust, Go (direct memory control)
+- **Medium:** JavaScript/TypeScript, Dart (optimized VMs)
+- **Higher:** Java, C# (JVM/CLR overhead)
+- **Variable:** Python, Ruby, PHP (depends on implementation)
 
----
+### Notes and Considerations
 
-## Notes
+**Algorithm Complexity:**
+- Time Complexity: O(n) - linear with Fibonacci number
+- Space Complexity: O(1) - constant space (only 2-3 variables)
 
-- **Optimization flags:** C/C++/Rust use `-O2` or `-O` for fair comparison
-- **Memory measurement:** Methods vary by language (RSS, heap allocation, GC stats)
-- **JIT warm-up:** JVM/V8 languages may be faster on repeated runs
-- **Integer overflow:** Some languages use arbitrary-precision integers (Python, Ruby) vs fixed 64-bit (C, Rust)
-- **System dependencies:** Results vary by CPU, OS, and installed versions
+**Integer Overflow Handling:**
+- Fibonacci(100) = 354,224,848,179,261,915,075 (39 digits)
+- This exceeds 64-bit integer max (19 digits)
+- All implementations use appropriate big integer types
 
----
+**Optimization Flags:**
+- C/C++: `-O2` (level 2 optimization)
+- Rust: `-O` (equivalent to `-O2`)
+- Go: default optimization in compiled mode
+- Others: runtime/JIT optimizations
 
-## Why This Benchmark?
+**System Dependencies:**
+- Results vary by CPU architecture (x86_64, ARM)
+- OS scheduler affects timing
+- Background processes impact results
+- First run may include JIT warm-up overhead
 
-**Iterative Fibonacci(50)** is chosen because it:
-- Tests basic loop efficiency
-- Involves simple integer arithmetic
-- Avoids I/O overhead
-- Is easy to verify (single correct answer)
-- Is simple enough to implement in any language (~10-30 lines)
+### Troubleshooting
 
-This is **not** a comprehensive benchmark but serves as a baseline indicator of raw computational speed differences between languages.
+**Common Issues:**
 
----
+1. **C/C++: `__uint128_t` not found**
+   - Only available on 64-bit systems with GCC/Clang
+   - Use alternative big integer library if needed
 
-## Project Structure
+2. **PHP: GMP extension not found**
+   ```bash
+   sudo apt install php-gmp  # Ubuntu
+   brew install php          # macOS (includes GMP)
+   ```
 
-```
-fib-benchmark/
-├── README.md          # This file
-├── fib.c              # C implementation
-├── fib.cpp            # C++ implementation
-├── fib.cs             # C# implementation
-├── Fib.java           # Java implementation
-├── fib.js             # JavaScript implementation
-├── fib.ts             # TypeScript implementation
-├── fib.py             # Python implementation
-├── fib.rs             # Rust implementation
-├── fib.go             # Go implementation
-├── fib.dart           # Dart implementation
-├── fib.sh             # Bash implementation
-├── fib.php            # PHP implementation
-└── fib.rb             # Ruby implementation
-```
+3. **Bash: bc command not found**
+   ```bash
+   sudo apt install bc       # Ubuntu
+   brew install bc           # macOS
+   ```
 
----
+4. **Java: Class not found**
+   - Ensure class name matches filename (Fib.java → Fib.class)
 
-## License
+5. **TypeScript: ts-node not found**
+   ```bash
+   npm install -g ts-node typescript
+   ```
+
+### Benchmarking Best Practices
+
+1. **Close unnecessary applications** before running benchmarks
+2. **Run multiple iterations** and take the average
+3. **Warm up JIT-compiled languages** (run once before measuring)
+4. **Use consistent system state** (same background load)
+5. **Consider CPU frequency scaling** (may affect results)
+6. **Test on same hardware** for fair comparison
+
+### Use Cases
+
+This benchmark is useful for:
+- **Language selection** for compute-intensive applications
+- **Educational purposes** to understand language performance characteristics
+- **Runtime comparison** across different language ecosystems
+- **Understanding big integer** performance implications
+
+**Not suitable for:**
+- Real-world application performance (too simple)
+- I/O-heavy workload comparison
+- Concurrent/parallel processing benchmarks
+- Memory-intensive application testing
+
+### Future Enhancements
+
+Potential improvements to this benchmark:
+- Add more languages (Haskell, Kotlin, Swift, Zig, etc.)
+- Implement recursive version for comparison
+- Add multithreaded implementations
+- Create graphical performance charts
+- Add Docker containers for consistent environments
+- Implement matrix exponentiation method O(log n)
+- Add automated CI/CD benchmarking
+
+### Additional Resources
+
+- [Fibonacci Sequence - Wikipedia](https://en.wikipedia.org/wiki/Fibonacci_number)
+- [Big O Notation](https://en.wikipedia.org/wiki/Big_O_notation)
+- [Language Benchmarks](https://benchmarksgame-team.pages.debian.net/benchmarksgame/)
+
+### License
 
 MIT License - Feel free to use and modify for your own benchmarking needs.
 
-## Author
+---
 
-Created as a simple cross-language performance demonstration.
+**Last Updated:** December 30, 2025
+**Maintained by:** net1io.com

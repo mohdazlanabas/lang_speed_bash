@@ -11,7 +11,7 @@ def fibonacci(n):
 
 tracemalloc.start()
 start_time = time.perf_counter()
-result = fibonacci(50)
+result = fibonacci(100)
 end_time = time.perf_counter()
 current, peak = tracemalloc.get_traced_memory()
 tracemalloc.stop()

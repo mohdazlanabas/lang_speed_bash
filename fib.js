@@ -10,7 +10,7 @@ function fibonacci(n) {
 }
 
 const startTime = process.hrtime.bigint();
-const result = fibonacci(50);
+const result = fibonacci(100);
 const endTime = process.hrtime.bigint();
 
 const timeSeconds = Number(endTime - startTime) / 1e9;

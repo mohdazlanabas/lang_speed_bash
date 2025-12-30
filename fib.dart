@@ -1,8 +1,8 @@
 import 'dart:io';
 
-int fibonacci(int n) {
-  if (n <= 1) return n;
-  int a = 0, b = 1, temp;
+BigInt fibonacci(int n) {
+  if (n <= 1) return BigInt.from(n);
+  BigInt a = BigInt.zero, b = BigInt.one, temp;
   for (int i = 2; i <= n; i++) {
     temp = a + b;
     a = b;
@@ -13,12 +13,12 @@ int fibonacci(int n) {
 
 void main() {
   final stopwatch = Stopwatch()..start();
-  final result = fibonacci(50);
+  final result = fibonacci(100);
   stopwatch.stop();
-  
+
   final memoryInfo = ProcessInfo.currentRss;
   final memoryKB = memoryInfo ~/ 1024;
-  
+
   print('Language: Dart');
   print('Time: ${(stopwatch.elapsedMicroseconds / 1000000).toStringAsFixed(6)} seconds');
   print('Memory: $memoryKB KB');

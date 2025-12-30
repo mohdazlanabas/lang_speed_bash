@@ -6,23 +6,25 @@ fibonacci() {
         echo $n
         return
     fi
-    
-    local a=0
-    local b=1
-    local temp
-    
-    for ((i=2; i<=n; i++)); do
-        temp=$((a + b))
-        a=$b
-        b=$temp
-    done
-    
-    echo $b
+
+    # Use bc for arbitrary precision arithmetic
+    local result=$(bc <<EOF
+a = 0
+b = 1
+for (i = 2; i <= $n; i++) {
+    temp = a + b
+    a = b
+    b = temp
+}
+b
+EOF
+)
+    echo $result
 }
 
 # Start timing
 start=$(date +%s.%N)
-result=$(fibonacci 50)
+result=$(fibonacci 100)
 end=$(date +%s.%N)
 
 # Calculate time

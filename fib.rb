@@ -8,7 +8,7 @@ def fibonacci(n)
 end
 
 start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-result = fibonacci(50)
+result = fibonacci(100)
 end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
 
 time_taken = end_time - start_time

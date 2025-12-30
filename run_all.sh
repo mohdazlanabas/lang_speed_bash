@@ -1,5 +1,5 @@
 #!/bin/bash
-    echo "=== Fibonacci(50) Benchmark ==="
+    echo "=== Fibonacci(100) Benchmark ==="
     echo ""
 
     # C
@@ -11,8 +11,13 @@
     echo ""
 
     # C#
-    mcs fib.cs && mono fib.exe
-    echo ""
+    if command -v dotnet &> /dev/null; then
+        dotnet script fib.cs
+        echo ""
+    else
+        echo "C# (.NET) not installed - skipping"
+        echo ""
+    fi
 
     # Java
     javac Fib.java && java Fib
@@ -39,8 +44,13 @@
     echo ""
 
     # Dart
-    dart fib.dart
-    echo ""
+    if command -v dart &> /dev/null; then
+        dart fib.dart
+        echo ""
+    else
+        echo "Dart not installed - skipping"
+        echo ""
+    fi
 
     # Bash
     chmod +x fib.sh && ./fib.sh

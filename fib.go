@@ -2,17 +2,22 @@ package main
 
 import (
     "fmt"
+    "math/big"
     "runtime"
     "time"
 )
 
-func fibonacci(n int) uint64 {
+func fibonacci(n int) *big.Int {
     if n <= 1 {
-        return uint64(n)
+        return big.NewInt(int64(n))
     }
-    var a, b uint64 = 0, 1
+    a := big.NewInt(0)
+    b := big.NewInt(1)
+    temp := big.NewInt(0)
     for i := 2; i <= n; i++ {
-        a, b = b, a+b
+        temp.Add(a, b)
+        a.Set(b)
+        b.Set(temp)
     }
     return b
 }
@@ -20,16 +25,16 @@ func fibonacci(n int) uint64 {
 func main() {
     var m runtime.MemStats
     runtime.ReadMemStats(&m)
-    
+
     start := time.Now()
-    result := fibonacci(50)
+    result := fibonacci(100)
     elapsed := time.Since(start)
-    
+
     runtime.ReadMemStats(&m)
     memoryKB := m.Alloc / 1024
-    
+
     fmt.Println("Language: Go")
     fmt.Printf("Time: %.6f seconds\n", elapsed.Seconds())
     fmt.Printf("Memory: %d KB\n", memoryKB)
-    fmt.Printf("Result: %d\n", result)
+    fmt.Printf("Result: %s\n", result.String())
 }

@@ -1,12 +1,13 @@
 using System;
 using System.Diagnostics;
+using System.Numerics;
 
 class Program
 {
-    static long Fibonacci(int n)
+    static BigInteger Fibonacci(int n)
     {
         if (n <= 1) return n;
-        long a = 0, b = 1, temp;
+        BigInteger a = 0, b = 1, temp;
         for (int i = 2; i <= n; i++)
         {
             temp = a + b;
@@ -19,11 +20,11 @@ class Program
     static void Main()
     {
         var stopwatch = Stopwatch.StartNew();
-        long result = Fibonacci(50);
+        BigInteger result = Fibonacci(100);
         stopwatch.Stop();
-        
+
         long memoryUsed = GC.GetTotalMemory(false) / 1024;
-        
+
         Console.WriteLine("Language: C#");
         Console.WriteLine($"Time: {stopwatch.Elapsed.TotalSeconds:F6} seconds");
         Console.WriteLine($"Memory: {memoryUsed} KB");
