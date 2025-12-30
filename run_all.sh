@@ -10,6 +10,10 @@
     g++ -O2 fib.cpp -o fib_cpp && ./fib_cpp
     echo ""
 
+    # C#
+    mcs fib.cs -r:System.Numerics.dll && mono fib.exe
+    echo ""
+
     # Java
     javac Fib.java && java Fib
     echo ""
