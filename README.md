@@ -14,7 +14,7 @@
 
 ### App Introduction
 
-This application implements a computational benchmark to compare the performance of 13 popular programming languages by calculating the 100th Fibonacci number using an iterative algorithm. The benchmark measures execution time, memory usage, and demonstrates how different languages handle arbitrary-precision arithmetic required for large integer calculations.
+This application implements a computational benchmark to compare the performance of 12 popular programming languages by calculating the 100th Fibonacci number using an iterative algorithm. The benchmark measures execution time, memory usage, and demonstrates how different languages handle arbitrary-precision arithmetic required for large integer calculations.
 
 **Benchmark Details:**
 - **Algorithm:** Iterative Fibonacci calculation (not recursive)
@@ -54,7 +54,6 @@ The application follows a simple, parallelized architecture:
 |------------|----------------|---------------------|
 | C          | GCC/Clang      | `__uint128_t`       |
 | C++        | GCC/Clang      | `__uint128_t`       |
-| C#         | .NET/Mono      | `System.Numerics.BigInteger` |
 | Java       | OpenJDK 11+    | `java.math.BigInteger` |
 | JavaScript | Node.js 14+    | `BigInt` (native)   |
 | TypeScript | ts-node        | `BigInt` (native)   |
@@ -75,7 +74,6 @@ lang_speed/
 │
 ├── fib.c                 # C implementation (uses __uint128_t)
 ├── fib.cpp               # C++ implementation (uses __uint128_t)
-├── fib.cs                # C# implementation (uses BigInteger)
 ├── Fib.java              # Java implementation (uses BigInteger)
 ├── fib.js                # JavaScript implementation (uses BigInt)
 ├── fib.ts                # TypeScript implementation (uses BigInt)
@@ -101,7 +99,7 @@ lang_speed/
 
 **macOS (via Homebrew):**
 ```bash
-brew install gcc mono openjdk node python rust go dart php ruby bc
+brew install gcc openjdk node python rust go dart php ruby bc
 npm install -g typescript ts-node
 ```
 
@@ -109,9 +107,6 @@ npm install -g typescript ts-node
 ```bash
 # C/C++
 sudo apt install build-essential
-
-# C#
-sudo apt install mono-mcs
 
 # Java
 sudo apt install default-jdk
@@ -154,13 +149,6 @@ gcc -O2 fib.c -o fib_c
 g++ -O2 fib.cpp -o fib_cpp
 ```
 
-**C#:**
-```bash
-mcs fib.cs
-# Or with .NET Core:
-dotnet build fib.cs
-```
-
 **Java:**
 ```bash
 javac Fib.java
@@ -198,13 +186,6 @@ tsc fib.ts
 **C++:**
 ```bash
 ./fib_cpp
-```
-
-**C#:**
-```bash
-mono fib.exe
-# Or with .NET Core:
-dotnet run fib.cs
 ```
 
 **Java:**
